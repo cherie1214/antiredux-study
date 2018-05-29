@@ -3,15 +3,27 @@ import AppPresenter from "./AppPresenter";
 import Store from "store";
 
 class AppContainer extends Component {
-  state = {
-    message: "Hello"
-  }
-  componentDidMount = () => {
-    setTimeout(() => {
-      this.setState({
-        message: "Bye!"
-      })
-    }, 2000)
+  constructor(props){
+    // 스토어에 적용할 함수는 반드시 이 안에 있어야 함!
+    super(props);
+
+    this._changeMessage = () => {
+      if(this.state.message === "Hello") {
+        this.setState({
+          message: "Bye bye"
+        })
+      } else {
+        this.setState({
+          message: "Hello"
+        })
+      }
+    }
+
+    // 실질적인 store
+    this.state = {
+      message: "Hello",
+      changeMessage: this._changeMessage,
+    }
   }
   render() {
     return (
